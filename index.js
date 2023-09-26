@@ -17,11 +17,11 @@ const knightMoves = ([x,y],[a,b]) => {
     // Define knight's possible moves
     const possibleMoves = [[+1,+2],[+1,-2],[-1,+2],[-1,-2],[+2,+1],[+2,-1],[-2,+1],[-2,-1]];
 
-
     const knigth = new Knight(x,y);
-    const moves = getNextMoves([x,y]);
-    const queue = [];
+    const queue = [knigth];
+    chessboard[x][y].visited = true;
 
-    for (const )
-
+    while(queue.length > 0) {
+        const currentKnight = queue.shift();
+    }
 }
