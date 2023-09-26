@@ -23,5 +23,24 @@ const knightMoves = ([x,y],[a,b]) => {
 
     while(queue.length > 0) {
         const currentKnight = queue.shift();
+        const [currentX, currentY] = currentKnight.position;
+        
+        for (const [xCoord, yCoord] of possibleMoves) {
+            const newX = currentX + xCoord;
+            const newY = currentY + yCoord;
+
+            if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8 && !chessboard[newX][newY].visited) {
+                const newKnight = new Knight(newX,newY);
+                newKnight.path.push([...currentKnight.path, newX,newY]);
+                queue.push(newKnight);
+                chessboard[newX][newY].visited = true;
+                chessboard[newX][newY].path = newKnight.path;
+    
+                if (newX === a && newY === b) {
+                    console.log(newKnight.path);
+                    return newKnight.path;
+                }
+            }
+        }
     }
 }
