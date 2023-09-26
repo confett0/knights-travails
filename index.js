@@ -6,13 +6,13 @@ class Knight {
 }
 
 const knightMoves = ([x,y],[a,b]) => {
-    if ((x < 0 || x >= 8) || (y < 0 || y >= 8) || (a < 0 || b >= 8) (a < 0 || b >= 8)) {
+    if ((x < 0 || x >= 8) || (y < 0 || y >= 8) || (a < 0 || a >= 8) || (b < 0 || b >= 8)) {
         return "Coordinates out of bound";
     }
     if (x === a && y === b) return "You're already where you want to get!";
 
     // Create a chessboard as a 2D array to keep track of visited cells and paths
-    const chessboard = Array(8).fill().map(() => Array(8).fill({ visited: false, path: [] }));
+    const chessboard = Array(8).fill().map(() => Array(8).fill({ visited: false}));
 
     // Define knight's possible moves
     const possibleMoves = [[+1,+2],[+1,-2],[-1,+2],[-1,-2],[+2,+1],[+2,-1],[-2,+1],[-2,-1]];
@@ -31,16 +31,18 @@ const knightMoves = ([x,y],[a,b]) => {
 
             if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8 && !chessboard[newX][newY].visited) {
                 const newKnight = new Knight(newX,newY);
-                newKnight.path.push([...currentKnight.path, newX,newY]);
+                newKnight.path.push([newX,newY]);
                 queue.push(newKnight);
                 chessboard[newX][newY].visited = true;
-                chessboard[newX][newY].path = newKnight.path;
     
                 if (newX === a && newY === b) {
-                    console.log(newKnight.path);
+                    console.log(newKnight.path, (newKnight.path.length - 1));
                     return newKnight.path;
                 }
             }
         }
     }
+    return "No valid path found.";
 }
+
+knightMoves([2,3],[7,5]);
