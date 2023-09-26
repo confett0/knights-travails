@@ -66,7 +66,7 @@ const knightMoves = ([x, y], [a, b]) => {
         chessboard[newX][newY].visited = true;
 
         if (newX === a && newY === b) {
-          console.log(newKnight.path, newKnight.path.length - 1);
+          console.log(`You made it in ${newKnight.path.length - 1} moves! Here's your path: ${newKnight.path}` );
           return newKnight.path;
         }
       }
