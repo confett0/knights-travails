@@ -16,14 +16,8 @@ const knightMoves = ([x, y], [a, b]) => {
     b < 0 ||
     b >= 8
   ) {
-    return "Coordinates out of bound";
+    return "Out of range, please enter start and end points between [0, 0] and [7, 7]";
   }
-  if (x === a && y === b) return "You're already where you want to get!";
-
-  // Create a chessboard as a 2D array to keep track of visited cells and paths
-  const chessboard = Array(8)
-    .fill()
-    .map(() => Array(8).fill({ visited: false }));
 
   // Define knight's possible moves
   const possibleMoves = [
@@ -39,7 +33,6 @@ const knightMoves = ([x, y], [a, b]) => {
 
   const knight = new Knight(x, y);
   const queue = [knight]; // Create a queue array and initialize it with the first knight position
-  chessboard[x][y].visited = true;
 
   // Perform a BFS on the possible moves
 
@@ -57,17 +50,16 @@ const knightMoves = ([x, y], [a, b]) => {
         newX >= 0 &&
         newX < 8 &&
         newY >= 0 &&
-        newY < 8 &&
-        !chessboard[newX][newY].visited
+        newY < 8
       ) {
         const newKnight = new Knight(newX, newY); // Create a new knight node for every legal next move
         newKnight.path = [...currentKnight.path, [newX, newY]]; // Add new position to the path array
         queue.push(newKnight);
-        chessboard[newX][newY].visited = true;
 
         if (newX === a && newY === b) {
           console.log(`You made it in ${newKnight.path.length - 1} moves! Here's your path:`);
           newKnight.path.forEach(pos => console.log(pos));
+          return;
         }
       }
     }
